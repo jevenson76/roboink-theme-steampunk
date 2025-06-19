@@ -1,0 +1,238 @@
+{% comment %}
+  404 Error page template for RoboInk Steampunk Theme
+{% endcomment %}
+
+<div class="error-404-page bg-parchment min-h-screen py-8 flex items-center">
+  <div class="container mx-auto px-6">
+    
+    <div class="error-content text-center max-w-4xl mx-auto">
+      
+      <!-- Animated Broken Gear -->
+      <div class="error-illustration mb-12 relative">
+        
+        <!-- Main Broken Gear -->
+        <div class="broken-gear text-9xl text-brass/60 relative inline-block">
+          ⚙
+          <!-- Crack Lines -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="crack-line w-24 h-0.5 bg-rust rotate-45 absolute"></div>
+            <div class="crack-line w-16 h-0.5 bg-rust -rotate-12 absolute"></div>
+          </div>
+          
+          <!-- Sparks Effect -->
+          <div class="sparks absolute -top-4 -right-4">
+            <div class="spark w-2 h-2 bg-copper rounded-full opacity-60 animate-bounce"></div>
+          </div>
+          <div class="sparks absolute -bottom-2 -left-2">
+            <div class="spark w-1 h-1 bg-rust rounded-full opacity-40" style="animation-delay: 0.5s;"></div>
+          </div>
+        </div>
+        
+        <!-- Supporting Gears -->
+        <div class="supporting-gears absolute inset-0 pointer-events-none">
+          <div class="gear-decoration text-4xl text-brass/30 absolute -top-8 -left-16 animate-spin-slow">⚙</div>
+          <div class="gear-decoration text-3xl text-copper/30 absolute -bottom-8 -right-16 animate-spin-reverse">⚙</div>
+          <div class="gear-decoration text-2xl text-teal/30 absolute top-16 -right-24 animate-spin-slow" style="animation-duration: 35s;">⚙</div>
+        </div>
+      </div>
+      
+      <!-- Error Message -->
+      <div class="error-message mb-12">
+        <h1 class="text-6xl md:text-8xl font-display font-bold mb-6">
+          <span class="metallic-text">404</span>
+        </h1>
+        
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-navy mb-4">
+          Mechanical Malfunction Detected
+        </h2>
+        
+        <p class="text-xl text-navy/70 max-w-2xl mx-auto leading-relaxed mb-8">
+          It appears one of our clockwork mechanisms has malfunctioned, and the page you're looking for has vanished into the steam. Our engineers are working to repair the gears!
+        </p>
+        
+        <!-- Error Code Box -->
+        <div class="error-code-box bg-navy/10 border-2 border-navy/20 rounded-lg p-6 max-w-md mx-auto mb-8">
+          <div class="flex items-center justify-center space-x-4">
+            <div class="gear-decoration text-2xl text-rust">⚙</div>
+            <div>
+              <p class="text-sm text-navy/60 uppercase tracking-wide">Error Code</p>
+              <p class="text-lg font-mono font-bold text-navy">STEAM_ENGINE_404</p>
+            </div>
+            <div class="gear-decoration text-2xl text-rust" style="animation-direction: reverse;">⚙</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Navigation Options -->
+      <div class="error-navigation">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          
+          <!-- Return Home -->
+          <div class="nav-option">
+            <a href="/" class="group block p-6 bg-gradient-brass rounded-lg text-navy hover:shadow-brass transition-all duration-300 transform hover:-translate-y-2">
+              <div class="text-4xl mb-4 group-hover:animate-bounce">🏠</div>
+              <h3 class="font-heading font-bold text-lg mb-2">Return Home</h3>
+              <p class="text-sm opacity-80">Back to the main workshop</p>
+            </a>
+          </div>
+          
+          <!-- Browse Collections -->
+          <div class="nav-option">
+            <a href="/collections/all" class="group block p-6 bg-gradient-metallic rounded-lg text-navy hover:shadow-copper transition-all duration-300 transform hover:-translate-y-2">
+              <div class="text-4xl mb-4 group-hover:animate-bounce">🛍️</div>
+              <h3 class="font-heading font-bold text-lg mb-2">Browse Shop</h3>
+              <p class="text-sm opacity-80">Discover steampunk treasures</p>
+            </a>
+          </div>
+          
+          <!-- Contact Support -->
+          <div class="nav-option">
+            <a href="/pages/contact" class="group block p-6 bg-gradient-navy rounded-lg text-parchment hover:shadow-navy transition-all duration-300 transform hover:-translate-y-2">
+              <div class="text-4xl mb-4 group-hover:animate-bounce">🔧</div>
+              <h3 class="font-heading font-bold text-lg mb-2">Get Help</h3>
+              <p class="text-sm opacity-80">Contact our engineers</p>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Search Box -->
+        <div class="search-rescue max-w-md mx-auto">
+          <h3 class="font-heading font-semibold text-navy mb-4">Search for Something Specific?</h3>
+          
+          <form action="/search" method="get" class="search-form">
+            <div class="flex space-x-2">
+              <input 
+                type="search" 
+                name="q" 
+                placeholder="Search our steampunk collection..."
+                class="flex-1 p-3 border-2 border-navy/20 rounded-lg bg-parchment focus:border-brass focus:outline-none"
+              >
+              <button 
+                type="submit" 
+                class="btn-primary px-6"
+              >
+                🔍
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <!-- Fun Facts -->
+      <div class="fun-facts mt-16 p-8 bg-parchment/50 rounded-lg border-2 border-navy/10">
+        <h3 class="font-heading font-bold text-navy mb-4">Did You Know?</h3>
+        <p class="text-navy/70 italic">
+          In the Victorian era, clockwork mechanisms were so precise that a single misaligned gear could stop an entire machine. 
+          Much like our digital gears today, every component must work in perfect harmony!
+        </p>
+        
+        <!-- Mini Gears Animation -->
+        <div class="mini-gears flex justify-center space-x-4 mt-6">
+          <div class="gear-decoration text-xl text-brass/60 animate-spin-slow">⚙</div>
+          <div class="gear-decoration text-lg text-copper/60 animate-spin-reverse" style="animation-delay: 0.5s;">⚙</div>
+          <div class="gear-decoration text-xl text-teal/60 animate-spin-slow" style="animation-delay: 1s;">⚙</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* 404 Page Specific Styles */
+.broken-gear {
+  filter: drop-shadow(0 4px 8px rgba(26, 38, 52, 0.2));
+  animation: wobble 2s ease-in-out infinite;
+}
+
+.crack-line {
+  opacity: 0.7;
+  box-shadow: 0 0 4px rgba(183, 65, 14, 0.5);
+}
+
+.spark {
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  75% { transform: rotate(-2deg); }
+}
+
+@keyframes sparkle {
+  0%, 100% { 
+    opacity: 0.6; 
+    transform: scale(1); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.2); 
+  }
+}
+
+.nav-option a:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.search-form input:focus {
+  box-shadow: 0 0 0 3px rgba(212, 180, 131, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .broken-gear {
+    font-size: 6rem;
+  }
+  
+  .supporting-gears .gear-decoration {
+    display: none;
+  }
+  
+  .error-code-box {
+    margin-bottom: 2rem;
+  }
+}
+
+/* Enhanced animations */
+.animate-spin-slow {
+  animation: spin 20s linear infinite;
+}
+
+.animate-spin-reverse {
+  animation: spin-reverse 25s linear infinite;
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* Steam effect for extra flair */
+.broken-gear::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: rgba(212, 180, 131, 0.4);
+  border-radius: 50%;
+  animation: steam 2s ease-in-out infinite;
+}
+
+@keyframes steam {
+  0% { 
+    opacity: 0.4;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  50% {
+    opacity: 0.2;
+    transform: translateX(-50%) translateY(-15px) scale(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-30px) scale(2);
+  }
+}
+</style>

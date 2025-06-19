@@ -1,0 +1,329 @@
+{% comment %}
+  General page template for RoboInk Steampunk Theme
+{% endcomment %}
+
+<div class="page-template bg-parchment min-h-screen py-8">
+  <div class="container mx-auto px-6">
+    
+    <!-- Page Header -->
+    <div class="page-header text-center mb-12 relative">
+      
+      <!-- Decorative Gears -->
+      <div class="absolute top-0 left-10 gear-decoration text-4xl opacity-20 text-brass hidden lg:block">⚙</div>
+      <div class="absolute top-10 right-10 gear-decoration text-5xl opacity-15 text-copper hidden lg:block" style="animation-duration: 30s; animation-direction: reverse;">⚙</div>
+      
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
+        <span class="metallic-text">{{ page.title }}</span>
+      </h1>
+      
+      {% if page.summary != blank %}
+        <p class="text-xl text-navy/80 max-w-3xl mx-auto leading-relaxed">
+          {{ page.summary }}
+        </p>
+      {% endif %}
+    </div>
+
+    <!-- Page Content -->
+    <div class="page-content max-w-4xl mx-auto">
+      
+      {% case page.handle %}
+        
+        {% when 'about' %}
+          <!-- About Page Specific Content -->
+          <div class="about-page">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+              <div class="about-image">
+                {% if page.image %}
+                  <img 
+                    src="{{ page.image | image_url: width: 600 }}" 
+                    alt="{{ page.title }}"
+                    class="w-full h-auto rounded-lg shadow-steampunk"
+                  >
+                {% else %}
+                  <div class="bg-gradient-navy rounded-lg p-12 text-center">
+                    <div class="gear-decoration text-6xl text-brass mb-4">⚙</div>
+                    <h3 class="text-2xl font-heading font-bold text-parchment mb-2">RoboInkTees</h3>
+                    <p class="text-parchment/80">Where Victorian Engineering Meets AI Design</p>
+                  </div>
+                {% endif %}
+              </div>
+              
+              <div class="about-content">
+                <h2 class="text-3xl font-heading font-bold text-navy mb-6">Our Story</h2>
+                {% if page.content != blank %}
+                  <div class="prose text-navy/80 leading-relaxed mb-6">
+                    {{ page.content }}
+                  </div>
+                {% else %}
+                  <div class="prose text-navy/80 leading-relaxed mb-6">
+                    <p>Welcome to RoboInkTees, where the elegance of the Victorian era meets the precision of artificial intelligence. Our unique designs blend mechanical artistry with timeless style, creating apparel that tells a story of innovation and craftsmanship.</p>
+                    
+                    <p>Each design is carefully crafted using advanced AI technology, inspired by the golden age of steam-powered machinery and intricate clockwork mechanisms. From majestic robots to fantastical vehicles, our collections celebrate the beauty of mechanical engineering.</p>
+                    
+                    <p>Discover the perfect fusion of past and future, where every piece embodies the spirit of invention and the aesthetics of a bygone era.</p>
+                  </div>
+                {% endif %}
+                
+                <!-- Features Grid -->
+                <div class="features-grid grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+                  <div class="feature-item p-4 bg-parchment/50 rounded-lg">
+                    <div class="text-2xl text-brass mb-2">🤖</div>
+                    <h4 class="font-heading font-semibold text-navy mb-1">AI-Generated Designs</h4>
+                    <p class="text-sm text-navy/70">Unique artwork created with cutting-edge technology</p>
+                  </div>
+                  <div class="feature-item p-4 bg-parchment/50 rounded-lg">
+                    <div class="text-2xl text-copper mb-2">⚙️</div>
+                    <h4 class="font-heading font-semibold text-navy mb-1">Victorian Aesthetics</h4>
+                    <p class="text-sm text-navy/70">Inspired by the elegance of the steam age</p>
+                  </div>
+                  <div class="feature-item p-4 bg-parchment/50 rounded-lg">
+                    <div class="text-2xl text-teal mb-2">👕</div>
+                    <h4 class="font-heading font-semibold text-navy mb-1">Quality Apparel</h4>
+                    <p class="text-sm text-navy/70">Premium materials and printing techniques</p>
+                  </div>
+                  <div class="feature-item p-4 bg-parchment/50 rounded-lg">
+                    <div class="text-2xl text-burgundy mb-2">✨</div>
+                    <h4 class="font-heading font-semibold text-navy mb-1">Custom Options</h4>
+                    <p class="text-sm text-navy/70">Personalized designs for unique requests</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+        {% when 'contact' %}
+          <!-- Contact Page Specific Content -->
+          <div class="contact-page">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              
+              <!-- Contact Form -->
+              <div class="contact-form">
+                <h2 class="text-3xl font-heading font-bold text-navy mb-6">Get in Touch</h2>
+                
+                {% form 'contact', class: 'space-y-4' %}
+                  {% if form.posted_successfully? %}
+                    <div class="success-message bg-teal/20 border border-teal p-4 rounded-lg mb-6">
+                      <p class="text-teal font-semibold">Thank you for your message! We'll get back to you soon.</p>
+                    </div>
+                  {% endif %}
+                  
+                  {% if form.errors %}
+                    <div class="error-message bg-rust/20 border border-rust p-4 rounded-lg mb-6">
+                      <p class="text-rust font-semibold">Please correct the following errors:</p>
+                      <ul class="list-disc list-inside text-rust">
+                        {% for field in form.errors %}
+                          <li>{{ field | capitalize }} {{ form.errors.messages[field] }}</li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  {% endif %}
+                  
+                  <div class="form-group">
+                    <label class="block text-navy font-semibold mb-2">Name *</label>
+                    <input 
+                      type="text" 
+                      name="contact[name]" 
+                      value="{{ form.name }}"
+                      class="w-full p-3 border border-navy/20 rounded-lg bg-parchment focus:border-brass focus:outline-none"
+                      required
+                    >
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="block text-navy font-semibold mb-2">Email *</label>
+                    <input 
+                      type="email" 
+                      name="contact[email]" 
+                      value="{{ form.email }}"
+                      class="w-full p-3 border border-navy/20 rounded-lg bg-parchment focus:border-brass focus:outline-none"
+                      required
+                    >
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="block text-navy font-semibold mb-2">Subject</label>
+                    <input 
+                      type="text" 
+                      name="contact[subject]" 
+                      value="{{ form.subject }}"
+                      class="w-full p-3 border border-navy/20 rounded-lg bg-parchment focus:border-brass focus:outline-none"
+                    >
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="block text-navy font-semibold mb-2">Message *</label>
+                    <textarea 
+                      name="contact[body]" 
+                      rows="6"
+                      class="w-full p-3 border border-navy/20 rounded-lg bg-parchment focus:border-brass focus:outline-none resize-none"
+                      required
+                    >{{ form.body }}</textarea>
+                  </div>
+                  
+                  <button type="submit" class="btn-primary w-full">
+                    Send Message
+                  </button>
+                {% endform %}
+              </div>
+              
+              <!-- Contact Info -->
+              <div class="contact-info">
+                <h2 class="text-3xl font-heading font-bold text-navy mb-6">Contact Information</h2>
+                
+                {% if page.content != blank %}
+                  <div class="prose text-navy/80 leading-relaxed mb-8">
+                    {{ page.content }}
+                  </div>
+                {% endif %}
+                
+                <div class="contact-details space-y-6">
+                  <div class="contact-item flex items-start space-x-4">
+                    <div class="contact-icon w-12 h-12 bg-brass/20 rounded-lg flex items-center justify-center">
+                      <span class="text-brass text-xl">📧</span>
+                    </div>
+                    <div>
+                      <h4 class="font-heading font-semibold text-navy mb-1">Email</h4>
+                      <p class="text-navy/70">support@roboinktees.com</p>
+                    </div>
+                  </div>
+                  
+                  <div class="contact-item flex items-start space-x-4">
+                    <div class="contact-icon w-12 h-12 bg-brass/20 rounded-lg flex items-center justify-center">
+                      <span class="text-brass text-xl">🕒</span>
+                    </div>
+                    <div>
+                      <h4 class="font-heading font-semibold text-navy mb-1">Business Hours</h4>
+                      <p class="text-navy/70">Monday - Friday: 9:00 AM - 5:00 PM CST</p>
+                    </div>
+                  </div>
+                  
+                  <div class="contact-item flex items-start space-x-4">
+                    <div class="contact-icon w-12 h-12 bg-brass/20 rounded-lg flex items-center justify-center">
+                      <span class="text-brass text-xl">💬</span>
+                    </div>
+                    <div>
+                      <h4 class="font-heading font-semibold text-navy mb-1">Response Time</h4>
+                      <p class="text-navy/70">We typically respond within 24 hours</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+        {% when 'custom-requests' %}
+          <!-- Custom Requests Page -->
+          <div class="custom-requests-page">
+            <div class="text-center mb-12">
+              <div class="gear-decoration text-6xl text-brass mb-4">⚙</div>
+              <h2 class="text-3xl font-heading font-bold text-navy mb-4">Bring Your Vision to Life</h2>
+              <p class="text-xl text-navy/80 max-w-2xl mx-auto">
+                Have a unique steampunk design idea? Our AI artists can create custom artwork tailored to your imagination.
+              </p>
+            </div>
+            
+            <!-- Content from page editor or default content -->
+            {% if page.content != blank %}
+              <div class="prose text-navy/80 leading-relaxed mb-12 max-w-none">
+                {{ page.content }}
+              </div>
+            {% endif %}
+            
+            <!-- CTA Section -->
+            <div class="text-center bg-gradient-navy rounded-lg p-8 text-parchment">
+              <h3 class="text-2xl font-heading font-bold mb-4">Ready to Start Your Custom Design?</h3>
+              <p class="mb-6">Contact us with your ideas and we'll bring them to life with our signature steampunk style.</p>
+              <a href="/pages/contact" class="btn-primary">Get Started</a>
+            </div>
+          </div>
+        
+        {% else %}
+          <!-- Default Page Content -->
+          <div class="default-page-content">
+            {% if page.content != blank %}
+              <div class="prose max-w-none text-navy/80 leading-relaxed">
+                {{ page.content }}
+              </div>
+            {% else %}
+              <div class="empty-page text-center py-16">
+                <div class="gear-decoration text-6xl opacity-20 text-brass mb-6">⚙</div>
+                <p class="text-xl text-navy/60">
+                  This page is currently being crafted with steampunk precision. Check back soon!
+                </p>
+              </div>
+            {% endif %}
+          </div>
+        
+      {% endcase %}
+      
+    </div>
+    
+    <!-- Bottom Navigation -->
+    <div class="page-navigation mt-16 text-center">
+      <a href="/" class="btn-secondary mr-4">
+        ← Back to Home
+      </a>
+      <a href="/collections/all" class="btn-primary">
+        Shop All Products
+      </a>
+    </div>
+    
+  </div>
+</div>
+
+<style>
+.prose {
+  color: inherit;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  color: var(--navy);
+  font-family: 'Roboto Slab', serif;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.prose h1 { font-size: 2.5rem; }
+.prose h2 { font-size: 2rem; }
+.prose h3 { font-size: 1.5rem; }
+
+.prose p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+}
+
+.prose ul, .prose ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+}
+
+.prose a {
+  color: var(--brass);
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.prose a:hover {
+  color: var(--copper);
+}
+
+.prose img {
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(26, 38, 52, 0.15);
+  margin: 2rem 0;
+}
+
+.prose blockquote {
+  border-left: 4px solid var(--brass);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  font-style: italic;
+  color: var(--navy);
+  opacity: 0.8;
+}
+</style>

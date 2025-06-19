@@ -1,0 +1,234 @@
+{% comment %}
+  Product page template for RoboInk Steampunk Theme
+{% endcomment %}
+
+<div class="product-page bg-parchment min-h-screen py-8">
+  <div class="container mx-auto px-6">
+    
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs mb-8">
+      <a href="/" class="text-navy hover:text-brass transition-colors">Home</a>
+      <span class="mx-2 text-navy/60">›</span>
+      {% if collection %}
+        <a href="{{ collection.url }}" class="text-navy hover:text-brass transition-colors">{{ collection.title }}</a>
+        <span class="mx-2 text-navy/60">›</span>
+      {% endif %}
+      <span class="text-navy/80">{{ product.title }}</span>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      
+      <!-- Product Images -->
+      <div class="product-images">
+        {% if product.featured_media %}
+          <div class="main-image mb-4">
+            <img 
+              src="{{ product.featured_media | image_url: width: 600 }}" 
+              alt="{{ product.featured_media.alt | escape }}"
+              class="w-full h-auto rounded-lg shadow-steampunk"
+            >
+          </div>
+          
+          {% if product.media.size > 1 %}
+            <div class="image-thumbnails grid grid-cols-4 gap-2">
+              {% for media in product.media limit: 4 %}
+                <img 
+                  src="{{ media | image_url: width: 150 }}" 
+                  alt="{{ media.alt | escape }}"
+                  class="w-full h-auto rounded cursor-pointer hover:opacity-75 transition-opacity"
+                  onclick="document.querySelector('.main-image img').src = '{{ media | image_url: width: 600 }}'"
+                >
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% else %}
+          <div class="placeholder-image bg-parchment/50 rounded-lg h-96 flex items-center justify-center">
+            <span class="text-navy/40 text-lg">No image available</span>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Product Info -->
+      <div class="product-info">
+        <h1 class="text-4xl font-heading font-bold text-navy mb-4">
+          {{ product.title }}
+        </h1>
+        
+        <!-- Price -->
+        <div class="price mb-6">
+          {% if product.compare_at_price > product.price %}
+            <span class="text-2xl font-bold text-rust line-through mr-2">
+              {{ product.compare_at_price | money }}
+            </span>
+            <span class="text-3xl font-bold text-navy">
+              {{ product.price | money }}
+            </span>
+            <span class="bg-rust text-parchment px-2 py-1 rounded text-sm ml-2">
+              SALE
+            </span>
+          {% else %}
+            <span class="text-3xl font-bold text-navy">
+              {{ product.price | money }}
+            </span>
+          {% endif %}
+        </div>
+
+        <!-- Product Form -->
+        {% form 'product', product, id: 'product-form', class: 'product-form' %}
+          
+          <!-- Variants -->
+          {% unless product.has_only_default_variant %}
+            {% for option in product.options_with_values %}
+              <div class="variant-selector mb-4">
+                <label class="block text-lg font-heading font-semibold text-navy mb-2">
+                  {{ option.name }}
+                </label>
+                <select 
+                  name="options[{{ option.name | escape }}]" 
+                  class="w-full p-3 border border-navy/20 rounded-lg bg-parchment focus:border-brass focus:outline-none"
+                >
+                  {% for value in option.values %}
+                    <option value="{{ value | escape }}">{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            {% endfor %}
+          {% endunless %}
+
+          <!-- Quantity -->
+          <div class="quantity-selector mb-6">
+            <label class="block text-lg font-heading font-semibold text-navy mb-2">
+              Quantity
+            </label>
+            <div class="flex items-center space-x-3">
+              <button type="button" class="qty-btn minus bg-navy text-parchment w-10 h-10 rounded-lg hover:bg-brass transition-colors">-</button>
+              <input 
+                type="number" 
+                name="quantity" 
+                value="1" 
+                min="1" 
+                class="qty-input w-16 p-2 text-center border border-navy/20 rounded-lg bg-parchment"
+              >
+              <button type="button" class="qty-btn plus bg-navy text-parchment w-10 h-10 rounded-lg hover:bg-brass transition-colors">+</button>
+            </div>
+          </div>
+
+          <!-- Add to Cart -->
+          <button 
+            type="submit" 
+            name="add"
+            class="btn-primary w-full mb-6 text-lg py-4"
+            {% unless product.available %}disabled{% endunless %}
+          >
+            {% if product.available %}
+              Add to Cart
+            {% else %}
+              Sold Out
+            {% endif %}
+          </button>
+
+        {% endform %}
+
+        <!-- Product Description -->
+        {% if product.description != blank %}
+          <div class="product-description">
+            <h3 class="text-xl font-heading font-semibold text-navy mb-3">Description</h3>
+            <div class="prose text-navy/80 leading-relaxed">
+              {{ product.description }}
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Product Details -->
+        <div class="product-details mt-8">
+          <div class="grid grid-cols-2 gap-4 text-sm">
+            {% if product.vendor != blank %}
+              <div>
+                <span class="font-semibold text-navy">Brand:</span>
+                <span class="text-navy/80">{{ product.vendor }}</span>
+              </div>
+            {% endif %}
+            {% if product.type != blank %}
+              <div>
+                <span class="font-semibold text-navy">Type:</span>
+                <span class="text-navy/80">{{ product.type }}</span>
+              </div>
+            {% endif %}
+            <div>
+              <span class="font-semibold text-navy">SKU:</span>
+              <span class="text-navy/80">{{ product.selected_or_first_available_variant.sku | default: 'N/A' }}</span>
+            </div>
+            <div>
+              <span class="font-semibold text-navy">Availability:</span>
+              <span class="text-navy/80">
+                {% if product.available %}
+                  In Stock
+                {% else %}
+                  Out of Stock
+                {% endif %}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Products -->
+    {% if collections['all'].products.size > 1 %}
+      <div class="related-products mt-16">
+        <h2 class="text-3xl font-heading font-bold text-navy mb-8 text-center">
+          You May Also Like
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {% assign related_products = collections['all'].products | where: 'available' | sample: 4 %}
+          {% for related_product in related_products %}
+            {% unless related_product.id == product.id %}
+              <div class="category-card">
+                <a href="{{ related_product.url }}">
+                  {% if related_product.featured_media %}
+                    <img 
+                      src="{{ related_product.featured_media | image_url: width: 300 }}" 
+                      alt="{{ related_product.title }}"
+                      class="w-full h-64 object-cover"
+                    >
+                  {% else %}
+                    <div class="w-full h-64 bg-parchment/50 flex items-center justify-center">
+                      <span class="text-navy/40">No image</span>
+                    </div>
+                  {% endif %}
+                  <div class="p-4">
+                    <h3 class="font-heading font-semibold text-navy mb-2">{{ related_product.title }}</h3>
+                    <p class="text-lg font-bold text-brass">{{ related_product.price | money }}</p>
+                  </div>
+                </a>
+              </div>
+            {% endunless %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+// Quantity selector functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const minusBtn = document.querySelector('.qty-btn.minus');
+  const plusBtn = document.querySelector('.qty-btn.plus');
+  const qtyInput = document.querySelector('.qty-input');
+  
+  if (minusBtn && plusBtn && qtyInput) {
+    minusBtn.addEventListener('click', function() {
+      let value = parseInt(qtyInput.value);
+      if (value > 1) {
+        qtyInput.value = value - 1;
+      }
+    });
+    
+    plusBtn.addEventListener('click', function() {
+      let value = parseInt(qtyInput.value);
+      qtyInput.value = value + 1;
+    });
+  }
+});
+</script>

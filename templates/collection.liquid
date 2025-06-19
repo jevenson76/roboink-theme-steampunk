@@ -1,0 +1,225 @@
+{% comment %}
+  Collection page template for RoboInk Steampunk Theme
+{% endcomment %}
+
+<div class="collection-page bg-parchment min-h-screen py-8">
+  <div class="container mx-auto px-6">
+    
+    <!-- Collection Header -->
+    <div class="collection-header text-center mb-12">
+      <h1 class="text-5xl md:text-6xl font-heading font-bold mb-4">
+        <span class="metallic-text">{{ collection.title | default: 'All Products' }}</span>
+      </h1>
+      
+      {% if collection.description != blank %}
+        <p class="text-xl text-navy/80 max-w-3xl mx-auto leading-relaxed">
+          {{ collection.description }}
+        </p>
+      {% endif %}
+      
+      <!-- Decorative Gears -->
+      <div class="relative mt-8">
+        <div class="absolute left-1/4 gear-decoration text-4xl opacity-30 text-brass">⚙</div>
+        <div class="absolute right-1/4 gear-decoration text-3xl opacity-20 text-copper" style="animation-duration: 25s; animation-direction: reverse;">⚙</div>
+      </div>
+    </div>
+
+    <!-- Filters and Sorting -->
+    <div class="collection-toolbar flex flex-col md:flex-row justify-between items-center mb-8 p-4 bg-parchment/50 rounded-lg">
+      <div class="collection-info mb-4 md:mb-0">
+        <span class="text-navy font-semibold">
+          {{ collection.products.size }} 
+          {% if collection.products.size == 1 %}product{% else %}products{% endif %}
+        </span>
+      </div>
+      
+      <div class="collection-sort">
+        <select 
+          id="sort-select" 
+          class="p-2 border border-navy/20 rounded bg-parchment text-navy focus:border-brass focus:outline-none"
+          onchange="window.location.href = this.value"
+        >
+          <option value="{{ collection.url }}">Sort by</option>
+          <option value="{{ collection.url }}?sort_by=title-ascending" {% if collection.sort_by == 'title-ascending' %}selected{% endif %}>A-Z</option>
+          <option value="{{ collection.url }}?sort_by=title-descending" {% if collection.sort_by == 'title-descending' %}selected{% endif %}>Z-A</option>
+          <option value="{{ collection.url }}?sort_by=price-ascending" {% if collection.sort_by == 'price-ascending' %}selected{% endif %}>Price: Low to High</option>
+          <option value="{{ collection.url }}?sort_by=price-descending" {% if collection.sort_by == 'price-descending' %}selected{% endif %}>Price: High to Low</option>
+          <option value="{{ collection.url }}?sort_by=created-descending" {% if collection.sort_by == 'created-descending' %}selected{% endif %}>Newest</option>
+          <option value="{{ collection.url }}?sort_by=created-ascending" {% if collection.sort_by == 'created-ascending' %}selected{% endif %}>Oldest</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    {% if collection.products.size > 0 %}
+      <div class="products-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {% for product in collection.products %}
+          <div class="product-card category-card">
+            <a href="{{ product.url }}" class="block">
+              
+              <!-- Product Image -->
+              <div class="product-image relative overflow-hidden">
+                {% if product.featured_media %}
+                  <img 
+                    src="{{ product.featured_media | image_url: width: 400 }}" 
+                    alt="{{ product.title | escape }}"
+                    class="w-full h-64 object-cover transition-transform duration-300"
+                  >
+                {% else %}
+                  <div class="w-full h-64 bg-parchment/50 flex items-center justify-center">
+                    <span class="text-navy/40 text-lg">No image</span>
+                  </div>
+                {% endif %}
+                
+                <!-- Sale Badge -->
+                {% if product.compare_at_price > product.price %}
+                  <div class="absolute top-2 right-2 bg-rust text-parchment px-2 py-1 rounded text-sm font-semibold">
+                    SALE
+                  </div>
+                {% endif %}
+                
+                <!-- Quick View Overlay -->
+                <div class="product-overlay absolute inset-0 bg-navy/70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <span class="text-parchment font-semibold">Quick View</span>
+                </div>
+              </div>
+              
+              <!-- Product Info -->
+              <div class="product-info p-4">
+                <h3 class="product-title font-heading font-semibold text-navy mb-2 line-clamp-2">
+                  {{ product.title }}
+                </h3>
+                
+                {% if product.vendor != blank %}
+                  <p class="product-vendor text-sm text-navy/60 mb-2">{{ product.vendor }}</p>
+                {% endif %}
+                
+                <!-- Price -->
+                <div class="product-price">
+                  {% if product.compare_at_price > product.price %}
+                    <span class="text-rust line-through mr-2">{{ product.compare_at_price | money }}</span>
+                    <span class="text-lg font-bold text-navy">{{ product.price | money }}</span>
+                  {% else %}
+                    <span class="text-lg font-bold text-navy">{{ product.price | money }}</span>
+                  {% endif %}
+                </div>
+                
+                <!-- Availability -->
+                <div class="product-availability mt-2">
+                  {% if product.available %}
+                    <span class="text-sm text-teal">In Stock</span>
+                  {% else %}
+                    <span class="text-sm text-rust">Out of Stock</span>
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+            
+            <!-- Quick Add to Cart -->
+            {% if product.available %}
+              <div class="quick-add p-4 pt-0">
+                {% form 'product', product, class: 'quick-add-form' %}
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  <button 
+                    type="submit" 
+                    class="btn-secondary w-full text-sm py-2"
+                  >
+                    Quick Add
+                  </button>
+                {% endform %}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+      
+      <!-- Pagination -->
+      {% if paginate.pages > 1 %}
+        <div class="pagination mt-12 flex justify-center">
+          <nav class="flex space-x-2">
+            {% if paginate.previous %}
+              <a href="{{ paginate.previous.url }}" class="pagination-link">
+                ← Previous
+              </a>
+            {% endif %}
+            
+            {% for part in paginate.parts %}
+              {% if part.is_link %}
+                <a href="{{ part.url }}" class="pagination-link">{{ part.title }}</a>
+              {% else %}
+                <span class="pagination-current">{{ part.title }}</span>
+              {% endif %}
+            {% endfor %}
+            
+            {% if paginate.next %}
+              <a href="{{ paginate.next.url }}" class="pagination-link">
+                Next →
+              </a>
+            {% endif %}
+          </nav>
+        </div>
+      {% endif %}
+      
+    {% else %}
+      <!-- Empty Collection -->
+      <div class="empty-collection text-center py-16">
+        <div class="gear-decoration text-6xl opacity-20 text-brass mb-6">⚙</div>
+        <h2 class="text-3xl font-heading font-bold text-navy mb-4">
+          No products found
+        </h2>
+        <p class="text-xl text-navy/60 mb-8">
+          This collection is currently empty. Check back soon for new steampunk designs!
+        </p>
+        <a href="/" class="btn-primary">
+          Return to Home
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Load more functionality (if needed) -->
+<style>
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pagination-link {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--navy);
+  color: var(--navy);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.pagination-link:hover {
+  background: var(--brass);
+  border-color: var(--brass);
+  color: var(--navy);
+}
+
+.pagination-current {
+  padding: 0.5rem 1rem;
+  background: var(--navy);
+  color: var(--parchment);
+  border-radius: 0.5rem;
+  font-weight: 600;
+}
+
+.quick-add-form {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-card:hover .quick-add-form {
+  opacity: 1;
+}
+</style>
+
+{% paginate collection.products by 12 %}
+  <!-- Paginated content is handled above -->
+{% endpaginate %}
