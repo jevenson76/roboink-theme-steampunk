@@ -13,7 +13,7 @@
       }
     },
     "collection_grid": {
-      "type": "collection-grid",
+      "type": "collections-grid",
       "blocks": {
         "robots": {
           "type": "category",

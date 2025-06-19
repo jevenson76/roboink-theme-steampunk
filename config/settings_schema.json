@@ -97,7 +97,8 @@
       {
         "type": "font_picker",
         "id": "font_display",
-        "label": "Display font (for logos)"
+        "label": "Display font (for logos)",
+        "default": "assistant"
       },
       {
         "type": "range",
