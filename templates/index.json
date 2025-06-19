@@ -1,0 +1,112 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "heading": "RoboInk: Artistry & Automata",
+        "subheading": "Exquisite designs, drawn by machine hands. Discover a new era of style, where Victorian elegance is etched with robotic precision.",
+        "tagline": "Where Victorian Engineering Meets AI Design. Timeless style, machine-made.",
+        "cta_label": "Explore Collections",
+        "cta_link": "/collections/all",
+        "secondary_cta_label": "Custom Requests",
+        "secondary_cta_link": "/pages/custom-requests"
+      }
+    },
+    "collection_grid": {
+      "type": "collection-grid",
+      "blocks": {
+        "robots": {
+          "type": "category",
+          "settings": {
+            "title": "Robots",
+            "description": "Mechanical beings powered by gears and creative engineering",
+            "link": "/collections/robots"
+          }
+        },
+        "vehicles": {
+          "type": "category",
+          "settings": {
+            "title": "Vehicles", 
+            "description": "Fantastical transportation—airships, trains, subs, and more",
+            "link": "/collections/vehicles"
+          }
+        },
+        "clockwork": {
+          "type": "category",
+          "settings": {
+            "title": "Clockwork Creatures",
+            "description": "Animals and beasts reimagined with mechanical artistry",
+            "link": "/collections/clockwork-creatures"
+          }
+        },
+        "gadgetry": {
+          "type": "category",
+          "settings": {
+            "title": "Gadgetry & Gizmos",
+            "description": "Inventive gadgets, wearable tech, and playful devices",
+            "link": "/collections/gadgetry-gizmos"
+          }
+        },
+        "victorian": {
+          "type": "category",
+          "settings": {
+            "title": "Victorian Vanguard",
+            "description": "Portraits, fashion, and motifs from a classic era",
+            "link": "/collections/victorian-vanguard"
+          }
+        },
+        "retro": {
+          "type": "category",
+          "settings": {
+            "title": "Retro-Futurism",
+            "description": "Futuristic tech and scenes imagined from the past",
+            "link": "/collections/retro-futurism"
+          }
+        },
+        "skulls": {
+          "type": "category",
+          "settings": {
+            "title": "Skulls",
+            "description": "Skulls and anatomy fused with gears and mechanical detail",
+            "link": "/collections/skulls"
+          }
+        },
+        "typography": {
+          "type": "category",
+          "settings": {
+            "title": "Typographic Treasures",
+            "description": "Clever quotes and sayings in steampunk style",
+            "link": "/collections/typography"
+          }
+        },
+        "custom": {
+          "type": "category",
+          "settings": {
+            "title": "Custom Requests",
+            "description": "Bring your unique steampunk design ideas to life",
+            "link": "/pages/custom-requests"
+          }
+        }
+      },
+      "block_order": [
+        "robots",
+        "vehicles", 
+        "clockwork",
+        "gadgetry",
+        "victorian",
+        "retro",
+        "skulls",
+        "typography",
+        "custom"
+      ],
+      "settings": {
+        "heading": "Explore Our Collections",
+        "subheading": "Discover unique steampunk designs across our carefully curated categories"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "collection_grid"
+  ]
+}

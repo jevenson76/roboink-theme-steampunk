@@ -1,0 +1,218 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "RoboInk Steampunk",
+    "theme_version": "1.0.0",
+    "theme_author": "RoboInkTees",
+    "theme_documentation_url": "https://help.shopify.com/",
+    "theme_support_url": "https://support.shopify.com/"
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 50,
+        "max": 300,
+        "step": 10,
+        "default": 150,
+        "unit": "px",
+        "label": "Logo width"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_parchment",
+        "label": "Parchment (Background)",
+        "default": "#F8F5F0"
+      },
+      {
+        "type": "color",
+        "id": "color_navy",
+        "label": "Navy (Text)",
+        "default": "#1A2634"
+      },
+      {
+        "type": "color",
+        "id": "color_brass",
+        "label": "Brass (Primary Accent)",
+        "default": "#D4B483"
+      },
+      {
+        "type": "color",
+        "id": "color_copper",
+        "label": "Copper (Secondary Accent)",
+        "default": "#E7A977"
+      },
+      {
+        "type": "color",
+        "id": "color_burgundy",
+        "label": "Burgundy (Headers)",
+        "default": "#800020"
+      },
+      {
+        "type": "color",
+        "id": "color_teal",
+        "label": "Teal (Subtle Accent)",
+        "default": "#6DC6C4"
+      },
+      {
+        "type": "color",
+        "id": "color_rust",
+        "label": "Rust (Warm Accent)",
+        "default": "#B7410E"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_primary",
+        "label": "Primary font",
+        "default": "roboto_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading font",
+        "default": "roboto_slab_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_display",
+        "label": "Display font (for logos)",
+        "default": "cinzel_decorative_n4"
+      },
+      {
+        "type": "range",
+        "id": "font_size_base",
+        "min": 12,
+        "max": 20,
+        "step": 1,
+        "default": 16,
+        "unit": "px",
+        "label": "Base font size"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "min": 1000,
+        "max": 1600,
+        "step": 50,
+        "default": 1200,
+        "unit": "px",
+        "label": "Page width"
+      },
+      {
+        "type": "checkbox",
+        "id": "animations_enabled",
+        "label": "Enable animations",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram",
+        "info": "https://instagram.com/roboinktees"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok",
+        "info": "https://tiktok.com/@roboinktees"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter"
+      },
+      {
+        "type": "image_picker",
+        "id": "share_image",
+        "label": "Default social sharing image",
+        "info": "Will be used when sharing pages that don't have a featured image. Recommended size: 1200 x 630 pixels."
+      }
+    ]
+  },
+  {
+    "name": "Search",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "predictive_search_enabled",
+        "label": "Enable predictive search",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart type",
+        "options": [
+          {
+            "value": "page",
+            "label": "Page"
+          },
+          {
+            "value": "drawer",
+            "label": "Drawer"
+          }
+        ],
+        "default": "drawer"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": "Enable cart notes",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image",
+        "info": "Will be scaled down to 32 x 32px"
+      }
+    ]
+  }
+]

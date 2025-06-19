@@ -1,0 +1,278 @@
+{% schema %}
+{
+  "name": "Footer - RoboInk",
+  "tag": "footer",
+  "class": "footer-section",
+  "settings": [
+    {
+      "id": "newsletter_heading",
+      "type": "text",
+      "label": "Newsletter heading",
+      "default": "Join the RoboInk Revolution"
+    },
+    {
+      "id": "newsletter_text",
+      "type": "textarea",
+      "label": "Newsletter description",
+      "default": "Get exclusive access to new designs, steampunk stories, and special offers delivered directly to your inbox."
+    },
+    {
+      "id": "show_social",
+      "type": "checkbox",
+      "label": "Show social media links",
+      "default": true
+    },
+    {
+      "id": "copyright_text",
+      "type": "textarea",
+      "label": "Copyright text",
+      "default": "© 2024 RoboInkTees. All rights reserved. Where Victorian Engineering Meets AI Design."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Footer menu",
+      "settings": [
+        {
+          "id": "heading",
+          "type": "text",
+          "label": "Heading",
+          "default": "Quick links"
+        },
+        {
+          "id": "menu",
+          "type": "link_list",
+          "label": "Menu",
+          "default": "footer"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "id": "heading",
+          "type": "text",
+          "label": "Heading",
+          "default": "About RoboInk"
+        },
+        {
+          "id": "subtext",
+          "type": "richtext",
+          "label": "Text",
+          "default": "<p>Discover unique steampunk designs created by artificial intelligence and Victorian-era inspiration. Each design tells a story of mechanical marvels and timeless elegance.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RoboInk Footer",
+      "blocks": [
+        {
+          "type": "text",
+          "settings": {
+            "heading": "About RoboInk",
+            "subtext": "<p>Discover unique steampunk designs created by artificial intelligence and Victorian-era inspiration. Each design tells a story of mechanical marvels and timeless elegance.</p>"
+          }
+        },
+        {
+          "type": "link_list",
+          "settings": {
+            "heading": "Shop",
+            "menu": "main-menu"
+          }
+        },
+        {
+          "type": "link_list",
+          "settings": {
+            "heading": "Support",
+            "menu": "footer"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<footer class="footer-section bg-navy text-parchment py-16 relative overflow-hidden">
+  <!-- Decorative Background Elements -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-10 left-10 gear-decoration text-6xl text-brass">⚙</div>
+    <div class="absolute top-20 right-20 gear-decoration text-8xl text-copper" style="animation-duration: 30s; animation-direction: reverse;">⚙</div>
+    <div class="absolute bottom-10 left-1/4 gear-decoration text-4xl text-rust" style="animation-duration: 40s;">⚙</div>
+    <div class="absolute bottom-20 right-10 gear-decoration text-5xl text-teal" style="animation-duration: 25s; animation-direction: reverse;">⚙</div>
+  </div>
+
+  <div class="container mx-auto px-6 relative z-10">
+    <!-- Newsletter Section -->
+    <div class="text-center mb-16 pb-16 border-b border-parchment/20">
+      <h3 class="text-3xl md:text-4xl font-heading font-bold mb-4">
+        <span class="metallic-text">{{ section.settings.newsletter_heading }}</span>
+      </h3>
+      <p class="text-lg text-parchment/80 max-w-2xl mx-auto mb-8 leading-relaxed">
+        {{ section.settings.newsletter_text }}
+      </p>
+      
+      <!-- Newsletter Form -->
+      {% form 'customer', id: 'Subscribe', class: 'newsletter-form' %}
+        <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <input
+            type="email"
+            name="contact[email]"
+            placeholder="Enter your email address"
+            class="flex-1 px-4 py-3 rounded-lg bg-parchment/10 border border-parchment/30 text-parchment placeholder-parchment/60 focus:border-brass focus:bg-parchment/20 transition-all duration-300"
+            required
+          >
+          <button type="submit" class="btn-primary whitespace-nowrap">
+            Subscribe
+          </button>
+        </div>
+      {% endform %}
+    </div>
+
+    <!-- Footer Content Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+      <!-- Logo and About -->
+      <div class="lg:col-span-1">
+        <a href="/" class="block mb-6">
+          {%- if settings.logo != blank -%}
+            <img src="{{ settings.logo | image_url: width: 150 }}" alt="{{ shop.name }}" class="h-12 w-auto">
+          {%- else -%}
+            <span class="text-2xl font-display font-bold metallic-text">RoboInkTees</span>
+          {%- endif -%}
+        </a>
+        <p class="text-parchment/80 leading-relaxed">
+          Where Victorian Engineering Meets AI Design. Timeless style, machine-made.
+        </p>
+      </div>
+
+      <!-- Dynamic Footer Blocks -->
+      {%- for block in section.blocks -%}
+        <div class="footer-block" {{ block.shopify_attributes }}>
+          {%- case block.type -%}
+            {%- when 'link_list' -%}
+              {%- if block.settings.menu != blank -%}
+                <h4 class="text-lg font-heading font-semibold mb-4 text-brass">
+                  {{ block.settings.heading }}
+                </h4>
+                <ul class="space-y-2">
+                  {%- for link in linklists[block.settings.menu].links -%}
+                    <li>
+                      <a href="{{ link.url }}" class="text-parchment/80 hover:text-brass transition-colors duration-300">
+                        {{ link.title }}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+
+            {%- when 'text' -%}
+              <h4 class="text-lg font-heading font-semibold mb-4 text-brass">
+                {{ block.settings.heading }}
+              </h4>
+              <div class="text-parchment/80 leading-relaxed">
+                {{ block.settings.subtext }}
+              </div>
+          {%- endcase -%}
+        </div>
+      {%- endfor -%}
+
+      <!-- Social Media Links -->
+      {%- if section.settings.show_social -%}
+        <div class="footer-block">
+          <h4 class="text-lg font-heading font-semibold mb-4 text-brass">
+            Follow Our Journey
+          </h4>
+          <div class="flex space-x-4">
+            {%- if settings.social_instagram_link != blank -%}
+              <a href="{{ settings.social_instagram_link }}" class="social-link" target="_blank" rel="noopener">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2"/>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="currentColor" stroke-width="2"/>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </a>
+            {%- endif -%}
+            {%- if settings.social_tiktok_link != blank -%}
+              <a href="{{ settings.social_tiktok_link }}" class="social-link" target="_blank" rel="noopener">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            {%- endif -%}
+            {%- if settings.social_facebook_link != blank -%}
+              <a href="{{ settings.social_facebook_link }}" class="social-link" target="_blank" rel="noopener">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="pt-8 border-t border-parchment/20">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <p class="text-parchment/60 text-sm mb-4 md:mb-0 text-center md:text-left">
+          {{ section.settings.copyright_text }}
+        </p>
+        <div class="flex items-center space-x-4 text-sm">
+          <a href="/pages/privacy-policy" class="text-parchment/60 hover:text-brass transition-colors duration-300">
+            Privacy Policy
+          </a>
+          <span class="text-parchment/40">|</span>
+          <a href="/pages/terms-of-service" class="text-parchment/60 hover:text-brass transition-colors duration-300">
+            Terms of Service
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .newsletter-form input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--brass);
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 2px solid var(--parchment);
+    border-radius: 50%;
+    color: var(--parchment);
+    transition: all 0.3s ease;
+  }
+
+  .social-link:hover {
+    border-color: var(--brass);
+    color: var(--brass);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 180, 131, 0.3);
+  }
+
+  .gear-decoration {
+    animation: spin 20s linear infinite;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .footer-section {
+      padding: 3rem 0;
+    }
+    
+    .gear-decoration {
+      display: none;
+    }
+  }
+</style>

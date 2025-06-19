@@ -1,0 +1,190 @@
+{% schema %}
+{
+  "name": "Hero - RoboInk Steampunk",
+  "tag": "section",
+  "class": "hero-section",
+  "settings": [
+    {
+      "id": "image",
+      "type": "image_picker",
+      "label": "Hero background image",
+      "default": "img/hero.jpg"
+    },
+    {
+      "id": "heading",
+      "type": "text",
+      "label": "Main heading",
+      "default": "RoboInk: Artistry & Automata"
+    },
+    {
+      "id": "subheading",
+      "type": "textarea",
+      "label": "Subheading",
+      "default": "Exquisite designs, drawn by machine hands. Discover a new era of style, where Victorian elegance is etched with robotic precision."
+    },
+    {
+      "id": "tagline",
+      "type": "text",
+      "label": "Tagline",
+      "default": "Where Victorian Engineering Meets AI Design. Timeless style, machine-made."
+    },
+    {
+      "id": "cta_label",
+      "type": "text",
+      "label": "Button text",
+      "default": "Explore Collections"
+    },
+    {
+      "id": "cta_link",
+      "type": "url",
+      "label": "Button link",
+      "default": "/collections/all"
+    },
+    {
+      "id": "secondary_cta_label",
+      "type": "text",
+      "label": "Secondary button text",
+      "default": "Custom Requests"
+    },
+    {
+      "id": "secondary_cta_link",
+      "type": "url",
+      "label": "Secondary button link",
+      "default": "/pages/custom-requests"
+    }
+  ],
+  "presets": [
+    {
+      "name": "RoboInk Hero"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="hero-section relative min-h-screen overflow-hidden">
+  <!-- Background Image -->
+  <div class="absolute inset-0">
+    {%- if section.settings.image != blank -%}
+      <img
+        src="{{ section.settings.image | image_url: width: 1920 }}"
+        alt="{{ section.settings.heading }}"
+        loading="eager"
+        class="w-full h-full object-cover"
+        width="1920"
+        height="1080"
+      >
+    {%- else -%}
+      <img
+        src="{{ 'img/hero.jpg' | asset_url }}"
+        alt="{{ section.settings.heading }}"
+        loading="eager"
+        class="w-full h-full object-cover"
+        width="1920"
+        height="1080"
+      >
+    {%- endif -%}
+  </div>
+
+  <!-- Gradient Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent"></div>
+
+  <!-- Decorative Gears -->
+  <div class="absolute top-20 right-20 gear-decoration text-6xl opacity-30 text-brass hidden lg:block">⚙</div>
+  <div class="absolute bottom-32 left-16 gear-decoration text-4xl opacity-20 text-copper hidden lg:block" style="animation-duration: 30s; animation-direction: reverse;">⚙</div>
+
+  <!-- Content -->
+  <div class="relative z-10 container mx-auto px-6 flex items-center min-h-screen">
+    <div class="max-w-3xl">
+      <!-- Brand Tagline -->
+      <p class="text-brass text-lg md:text-xl font-medium mb-4 tracking-wide">
+        {{ section.settings.tagline }}
+      </p>
+
+      <!-- Main Heading -->
+      <h1 class="hero-heading text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+        <span class="metallic-text font-display">
+          {{ section.settings.heading }}
+        </span>
+      </h1>
+
+      <!-- Subheading -->
+      <p class="text-parchment text-lg md:text-xl lg:text-2xl mb-8 leading-relaxed max-w-2xl opacity-90">
+        {{ section.settings.subheading }}
+      </p>
+
+      <!-- Call to Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="{{ section.settings.cta_link }}" class="btn-primary text-center">
+          {{ section.settings.cta_label }}
+        </a>
+        <a href="{{ section.settings.secondary_cta_link }}" class="btn-secondary text-center">
+          {{ section.settings.secondary_cta_label }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-parchment opacity-60">
+    <div class="flex flex-col items-center animate-bounce">
+      <span class="text-sm mb-2 tracking-wide">Scroll to explore</span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 5V19M12 19L19 12M12 19L5 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    background: linear-gradient(135deg, var(--navy) 0%, #0f1419 100%);
+  }
+
+  .hero-heading {
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  }
+
+  .gear-decoration {
+    animation: spin 20s linear infinite;
+  }
+
+  .gear-decoration:nth-child(3) {
+    animation-duration: 25s;
+    animation-direction: reverse;
+  }
+
+  /* Steam effect */
+  .hero-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at 30% 70%, rgba(212, 180, 131, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 30%, rgba(231, 169, 119, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .hero-heading {
+      font-size: 3rem;
+    }
+    
+    .hero-section {
+      min-height: 80vh;
+    }
+    
+    .gear-decoration {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-heading {
+      font-size: 2.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#1A2634">
+  <link rel="canonical" href="{{ canonical_url }}">
+  
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {%- endif -%}
+
+  <title>
+    {{ page_title }}
+    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  {% render 'meta-tags' %}
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Slab:wght@300;400;600;700&family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ 'roboink.css' | asset_url }}">
+  
+  {{ content_for_header }}
+
+  <style>
+    :root {
+      /* RoboInk Color System */
+      --parchment: #F8F5F0;
+      --navy: #1A2634;
+      --brass: #D4B483;
+      --copper: #E7A977;
+      --burgundy: #800020;
+      --teal: #6DC6C4;
+      --rust: #B7410E;
+      
+      /* Typography */
+      --font-primary: 'Roboto', sans-serif;
+      --font-heading: 'Roboto Slab', serif;
+      --font-display: 'Cinzel Decorative', serif;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 4px rgba(26, 38, 52, 0.1);
+      --shadow-md: 0 4px 8px rgba(26, 38, 52, 0.15);
+      --shadow-lg: 0 8px 24px rgba(26, 38, 52, 0.2);
+      
+      /* Border radius */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      background-color: var(--parchment);
+      color: var(--navy);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Steampunk decorative elements */
+    .gear-decoration {
+      position: relative;
+    }
+
+    .gear-decoration::before {
+      content: '⚙';
+      position: absolute;
+      color: var(--brass);
+      opacity: 0.3;
+      animation: spin 20s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .metallic-text {
+      background: linear-gradient(135deg, var(--brass), var(--copper), var(--brass));
+      background-size: 200% 200%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Header styles */
+    .site-header {
+      background: var(--navy);
+      border-bottom: 3px solid var(--brass);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--brass);
+      text-decoration: none;
+      font-size: 1.8rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .nav-link {
+      color: var(--parchment);
+      text-decoration: none;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--brass);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--brass);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .cart-icon {
+      position: relative;
+      color: var(--parchment);
+      transition: color 0.3s ease;
+    }
+
+    .cart-icon:hover {
+      color: var(--brass);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--rust);
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    /* Button styles */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brass), var(--copper));
+      color: var(--navy);
+      padding: 12px 24px;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      color: var(--navy);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--navy);
+      border: 2px solid var(--navy);
+      padding: 10px 22px;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      background: var(--navy);
+      color: var(--parchment);
+    }
+
+    /* Responsive utilities */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 16px;
+      }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen">
+  <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+    {{ "accessibility.skip_to_text" | t }}
+  </a>
+
+  <header class="site-header">
+    <div class="container">
+      <div class="flex items-center justify-between py-4">
+        <!-- Logo -->
+        <a href="/" class="logo">
+          {%- if settings.logo != blank -%}
+            <img src="{{ settings.logo | image_url: width: 150 }}" alt="{{ shop.name }}" height="40" width="auto">
+          {%- else -%}
+            RoboInkTees
+          {%- endif -%}
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:block">
+          <ul class="flex space-x-8">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/collections/all" class="nav-link">Collections</a></li>
+            <li><a href="/pages/about" class="nav-link">About</a></li>
+            <li><a href="/pages/custom-requests" class="nav-link">Custom</a></li>
+            <li><a href="/pages/contact" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <!-- Cart Icon -->
+        <a href="{{ routes.cart_url }}" class="cart-icon">
+          {% render 'icon-cart' %}
+          {%- if cart.item_count > 0 -%}
+            <span class="cart-count">{{ cart.item_count }}</span>
+          {%- endif -%}
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden text-white" id="mobile-menu-button">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation -->
+      <nav id="mobile-menu" class="hidden md:hidden pb-4">
+        <ul class="space-y-2">
+          <li><a href="/" class="nav-link block py-2">Home</a></li>
+          <li><a href="/collections/all" class="nav-link block py-2">Collections</a></li>
+          <li><a href="/pages/about" class="nav-link block py-2">About</a></li>
+          <li><a href="/pages/custom-requests" class="nav-link block py-2">Custom</a></li>
+          <li><a href="/pages/contact" class="nav-link block py-2">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main" id="MainContent" class="content-for-layout focus-none" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
+
+  <ul hidden>
+    <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
+  </ul>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-button').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Shop URL and routes for JavaScript
+    window.shopUrl = '{{ request.origin }}';
+    window.routes = {
+      cart_add_url: '{{ routes.cart_add_url }}',
+      cart_change_url: '{{ routes.cart_change_url }}',
+      cart_update_url: '{{ routes.cart_update_url }}',
+      cart_url: '{{ routes.cart_url }}',
+      predictive_search_url: '{{ routes.predictive_search_url }}'
+    };
+
+    window.cartStrings = {
+      error: `{{ 'sections.cart.cart_error' | t }}`,
+      quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`
+    };
+
+    window.variantStrings = {
+      addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+      soldOut: `{{ 'products.product.sold_out' | t }}`,
+      unavailable: `{{ 'products.product.unavailable' | t }}`,
+    };
+  </script>
+
+  <script src="{{ 'roboink.js' | asset_url }}" defer="defer"></script>
+</body>
+</html>
