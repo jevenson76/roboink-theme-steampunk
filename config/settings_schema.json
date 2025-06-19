@@ -97,8 +97,7 @@
       {
         "type": "font_picker",
         "id": "font_display",
-        "label": "Display font (for logos)",
-        "default": "cinzel_decorative_n4"
+        "label": "Display font (for logos)"
       },
       {
         "type": "range",
@@ -201,17 +200,6 @@
         "id": "cart_notes_enable",
         "label": "Enable cart notes",
         "default": true
-      }
-    ]
-  },
-  {
-    "name": "Favicon",
-    "settings": [
-      {
-        "type": "image_picker",
-        "id": "favicon",
-        "label": "Favicon image",
-        "info": "Will be scaled down to 32 x 32px"
       }
     ]
   }

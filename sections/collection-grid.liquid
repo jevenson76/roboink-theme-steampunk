@@ -1,6 +1,6 @@
 {% schema %}
 {
-  "name": "Collection Grid - RoboInk Categories",
+  "name": "Collection Grid",
   "tag": "section",
   "class": "collection-grid-section",
   "settings": [
@@ -57,7 +57,7 @@
           "settings": {
             "title": "Robots",
             "description": "Mechanical beings powered by gears and creative engineering",
-            "image": "img/ROBOTS.png",
+            "image": "ROBOTS.png",
             "link": "/collections/robots"
           }
         },
@@ -66,7 +66,7 @@
           "settings": {
             "title": "Vehicles",
             "description": "Fantastical transportation—airships, trains, subs, and more",
-            "image": "img/VEHICLES.png",
+            "image": "VEHICLES.png",
             "link": "/collections/vehicles"
           }
         },
@@ -75,7 +75,7 @@
           "settings": {
             "title": "Clockwork Creatures",
             "description": "Animals and beasts reimagined with mechanical artistry",
-            "image": "img/CLOCKWORK CREATURES.png",
+            "image": "CLOCKWORK CREATURES.png",
             "link": "/collections/clockwork-creatures"
           }
         },
@@ -84,7 +84,7 @@
           "settings": {
             "title": "Gadgetry & Gizmos",
             "description": "Inventive gadgets, wearable tech, and playful devices",
-            "image": "img/GADGETRY & GIZMOS.png",
+            "image": "GADGETRY & GIZMOS.png",
             "link": "/collections/gadgetry-gizmos"
           }
         },
@@ -93,7 +93,7 @@
           "settings": {
             "title": "Victorian Vanguard",
             "description": "Portraits, fashion, and motifs from a classic era",
-            "image": "img/VICTORIAN VANGUARD.png",
+            "image": "VICTORIAN VANGUARD.png",
             "link": "/collections/victorian-vanguard"
           }
         },
@@ -102,7 +102,7 @@
           "settings": {
             "title": "Retro-Futurism",
             "description": "Futuristic tech and scenes imagined from the past",
-            "image": "img/RETRO-FUTURISM.png",
+            "image": "RETRO-FUTURISM.png",
             "link": "/collections/retro-futurism"
           }
         },
@@ -111,7 +111,7 @@
           "settings": {
             "title": "Skulls",
             "description": "Skulls and anatomy fused with gears and mechanical detail",
-            "image": "img/SKULLS.png",
+            "image": "SKULLS.png",
             "link": "/collections/skulls"
           }
         },
@@ -120,7 +120,7 @@
           "settings": {
             "title": "Typographic Treasures",
             "description": "Clever quotes and sayings in steampunk style",
-            "image": "img/TEXT.png",
+            "image": "TEXT.png",
             "link": "/collections/typography"
           }
         },
@@ -129,7 +129,7 @@
           "settings": {
             "title": "Custom Requests",
             "description": "Bring your unique steampunk design ideas to life",
-            "image": "img/CUSTOM.png",
+            "image": "CUSTOM.png",
             "link": "/pages/custom-requests"
           }
         }
@@ -177,7 +177,7 @@
                 >
               {%- else -%}
                 <img
-                  src="{{ 'img/' | append: block.settings.title | append: '.png' | asset_url }}"
+                  src="{{ block.settings.title | append: '.png' | asset_url }}"
                   alt="{{ block.settings.title }}"
                   loading="lazy"
                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
