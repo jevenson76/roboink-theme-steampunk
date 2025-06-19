@@ -74,14 +74,10 @@
         height="1080"
       >
     {%- else -%}
-      <img
-        src="{{ 'img/hero.jpg' | asset_url }}"
-        alt="{{ section.settings.heading }}"
-        loading="eager"
-        class="w-full h-full object-cover"
-        width="1920"
-        height="1080"
-      >
+      <!-- Steampunk pattern background -->
+      <div class="w-full h-full bg-gradient-to-br from-parchment via-parchment/90 to-brass/20">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 25% 25%, var(--brass) 2px, transparent 2px), radial-gradient(circle at 75% 75%, var(--copper) 1px, transparent 1px); background-size: 50px 50px, 30px 30px;"></div>
+      </div>
     {%- endif -%}
   </div>
 
