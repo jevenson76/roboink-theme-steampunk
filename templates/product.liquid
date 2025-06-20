@@ -26,6 +26,9 @@
               src="{{ product.featured_media | image_url: width: 600 }}" 
               alt="{{ product.featured_media.alt | escape }}"
               class="w-full h-auto rounded-lg shadow-steampunk"
+              width="600"
+              height="600"
+              loading="lazy"
             >
           </div>
           
@@ -180,8 +183,8 @@
           You May Also Like
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {% assign related_products = collections['all'].products | where: 'available' | sample: 4 %}
-          {% for related_product in related_products %}
+          {% assign related_products = collections['all'].products | where: 'available' %}
+          {% for related_product in related_products limit: 4 %}
             {% unless related_product.id == product.id %}
               <div class="category-card">
                 <a href="{{ related_product.url }}">

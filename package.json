@@ -1,0 +1,24 @@
+{
+  "name": "roboink-theme-steampunk",
+  "version": "1.0.0",
+  "description": "A sophisticated steampunk-themed Shopify Online Store 2.0 theme for RoboInkTees, featuring Victorian elegance with AI-generated designs.",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jevenson76/roboink-theme-steampunk.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jevenson76/roboink-theme-steampunk/issues"
+  },
+  "homepage": "https://github.com/jevenson76/roboink-theme-steampunk#readme",
+  "devDependencies": {
+    "tailwindcss": "^4.1.10"
+  }
+}
